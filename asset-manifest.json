@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/workout-weight-calc/static/css/main.e6c13ad2.css",
+    "main.js": "/workout-weight-calc/static/js/main.6ab587d6.js",
+    "static/js/488.61d01a7a.chunk.js": "/workout-weight-calc/static/js/488.61d01a7a.chunk.js",
+    "index.html": "/workout-weight-calc/index.html",
+    "main.e6c13ad2.css.map": "/workout-weight-calc/static/css/main.e6c13ad2.css.map",
+    "main.6ab587d6.js.map": "/workout-weight-calc/static/js/main.6ab587d6.js.map",
+    "488.61d01a7a.chunk.js.map": "/workout-weight-calc/static/js/488.61d01a7a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.6ab587d6.js"
+  ]
+}
