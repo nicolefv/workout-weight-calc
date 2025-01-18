@@ -1,0 +1,13 @@
+cd weights-app
+npm install @mui/material @emotion/react @emotion/styled @mui/icons-material
+mkdir -p src/components
+npm start
+# Using apt
+sudo apt update
+sudo apt install nodejs npm
+
+node --version
+npm --version
+
+mkdir backup
+
