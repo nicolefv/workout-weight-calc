@@ -11,3 +11,51 @@ npm --version
 
 mkdir backup
 
+git init
+
+cat > .gitignore << 'EOL'
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+EOL
+
+git add .
+git commit -m "Initial commit: Workout weight calculator with plate visualization"
+
+git remote add origin https://github.com/YOUR_USERNAME/workout-weight-calculator.git
+git branch -M main
+git push -u origin main
+
+# Find your computer's IP address
+ipconfig # on Windows
+ifconfig # on Mac/Linux
+
+# Then start React with your IP address
+REACT_APP_HOST=0.0.0.0 PORT=3000 npm start
+
+# Add GitHub Pages dependency
+npm install --save gh-pages
+
+# Deploy
+npm run deploy
+
+cat package.json
+
