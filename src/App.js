@@ -7,6 +7,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import BarbellVisualizer from './components/BarbellVisualizer';
+import DumbbellVisualizer from './components/DumbbellVisualizer';
 
 function App() {
   const [targetWeight, setTargetWeight] = useState(165);
@@ -63,18 +64,27 @@ function App() {
 
   const calculateWarmupSets = () => {
     const sets = [];
-    const barWeight = isKg ? 20 : 45; // 20kg or 45lbs bar
+    const barWeight = isKg ? 20 : 45;
+    const isTargetBarbell = targetWeight >= barWeight;
     
     for (let i = 1; i <= warmupSets; i++) {
       const percentage = 40 + ((50 / (warmupSets + 1)) * i);
-      // Round to nearest 2.5kg or 5lbs
       const roundTo = isKg ? 2.5 : 5;
-      const weight = Math.round((targetWeight * (percentage / 100)) / roundTo) * roundTo;
+      const totalWeight = Math.round((targetWeight * (percentage / 100)) / roundTo) * roundTo;
+      
+      // Check if this specific set needs a barbell
+      const isBarbell = totalWeight >= barWeight;
+      
+      // For dumbbell weights, divide by 2 since you hold one in each hand
+      const singleWeight = isBarbell ? totalWeight : totalWeight / 2;
+      
       sets.push({
         setNumber: i,
         percentage: Math.round(percentage),
-        weight: weight,
-        plates: calculatePlates(weight)
+        weight: totalWeight,
+        isBarbell,
+        singleWeight: Math.round(singleWeight * 10) / 10, // Round to 1 decimal
+        plates: isBarbell ? calculatePlates(totalWeight) : []
       });
     }
     return sets;
@@ -212,7 +222,14 @@ function App() {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={8}>
-              <BarbellVisualizer plates={set.plates} unit={isKg ? 'kg' : 'lbs'} />
+              {set.isBarbell ? (
+                <BarbellVisualizer plates={set.plates} unit={isKg ? 'kg' : 'lbs'} />
+              ) : (
+                <DumbbellVisualizer 
+                  weight={set.singleWeight} 
+                  unit={isKg ? 'kg' : 'lbs'} 
+                />
+              )}
             </Grid>
           </Grid>
         </Paper>
@@ -233,7 +250,14 @@ function App() {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={8}>
-            <BarbellVisualizer plates={calculatePlates(targetWeight)} unit={isKg ? 'kg' : 'lbs'} />
+            {targetWeight >= (isKg ? 20 : 45) ? (
+              <BarbellVisualizer plates={calculatePlates(targetWeight)} unit={isKg ? 'kg' : 'lbs'} />
+            ) : (
+              <DumbbellVisualizer 
+                weight={Math.round((targetWeight / 2) * 10) / 10} 
+                unit={isKg ? 'kg' : 'lbs'} 
+              />
+            )}
           </Grid>
         </Grid>
       </Paper>
