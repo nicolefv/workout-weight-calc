@@ -40,15 +40,17 @@ EOL
 git add .
 git commit -m "Initial commit: Workout weight calculator with plate visualization"
 
-git remote add origin https://github.com/YOUR_USERNAME/workout-weight-calculator.git
-git branch -M main
+# Set up the HTTPS remote
+git remote add origin https://github.com/nicolefv/workout-weight-calc.git
+
+# Push your changes
 git push -u origin main
 
-# Find your computer's IP address
+# Get your computer's IP address
 ipconfig # on Windows
 ifconfig # on Mac/Linux
 
-# Then start React with your IP address
+# Then start the server with host flag
 REACT_APP_HOST=0.0.0.0 PORT=3000 npm start
 
 # Add GitHub Pages dependency
@@ -57,5 +59,41 @@ npm install --save gh-pages
 # Deploy
 npm run deploy
 
+# Stage all the new files and changes
+git add src/components/DumbbellVisualizer.jsx
+git add src/App.js
+
+# Commit the changes
+git commit -m "Add dumbbell visualization for lighter weights"
+
+# Push to GitHub
+git push origin main
+
+# Deploy the updated version to GitHub Pages
+npm run deploy
+
 cat package.json
+
+# Generate SSH key
+ssh-keygen -t ed25519 -C "your.github@email.com"
+
+# Start the agent
+eval "$(ssh-agent -s)"
+
+# Add your key
+ssh-add ~/.ssh/id_ed25519
+
+# Copy the public key to clipboard (on Mac)
+pbcopy < ~/.ssh/id_ed25519.pub
+# Or display it to copy manually
+cat ~/.ssh/id_ed25519.pub
+
+# List your SSH keys
+ls -la ~/.ssh/
+
+# Check if ssh-agent is running and has your key
+ssh-add -l
+
+# Test your GitHub SSH connection
+ssh -T git@github.com
 
